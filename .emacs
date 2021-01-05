@@ -55,6 +55,7 @@ There are two things you can do about this warning:
  'lsp-treemacs
 )
 
+;; default font
 (set-frame-font "Monospace 14" nil t)
 
 ;; tab length
@@ -64,31 +65,44 @@ There are two things you can do about this warning:
 
 ;; line numbers
 (global-linum-mode)
+
 ;; hide toolbar
 (tool-bar-mode -1)
+
 ;; hide menubar
 (menu-bar-mode -1)
+
 ;; allow ctrl-v/c/x in mark mode
 ;;(cua-mode t)
+
 ;; display current column
 (setq column-number-mode t)
+
 ;; hide startup screen
 (setq inhibit-startup-screen t)
+
 ;; flash screen for bell
 (setq visible-bell t)
+
 ;; set term shell
 (setq explicit-shell-file-name (getenv "SHELL"))
+
 ;; y-or-n vs yes-or-no
 (defalias 'yes-or-no-p 'y-or-n-p)
+
 ;; always add newline
 (setq require-final-newline t)
+
 ;; autocomplete always on
 (global-auto-complete-mode t)
+
 ;; evil mode
 (require 'evil)
 (evil-mode 1)
+
 ;; Magit branch prompting DWIM
 (setq magit-branch-read-upstream-first 'fallback)
+
 ;; auto-start omnisharp server
 ;(add-hook 'csharp-mode-hook #'omnisharp-mode)
 ;; auto-start omnisharp flycheck

@@ -1,9 +1,12 @@
 #!/bin/bash
 
-USB="HS611"
-EXT_SCREEN="DP-0.3"
-STYLUS="HUION Huion Tablet_HS611 stylus"
-PAD="HUION Huion Tablet_HS611 Pad pad"
+# Config script for drawing tablet
+
+USB="HS611" # lsusb
+EXT_SCREEN="DP-0.3" # xrandr
+STYLUS="HUION Huion Tablet_HS611 stylus" # xsetwacom list devices
+PAD="HUION Huion Tablet_HS611 Pad pad" # xsetwacom list devices
+MONITOR="3840x2160+1920+0" # xrandr
 
 if lsusb | grep -q $USB; then
     echo "$USB found"
@@ -12,9 +15,10 @@ else
     exit 1
 fi
 
+# must map monitor to stylus, not pad
 if xrandr | grep -q "$EXT_SCREEN connected"; then
     echo "External monitor found"
-    xsetwacom set "$STYLUS" MapToOutput 3840x2160+1920+0
+    xsetwacom set "$STYLUS" MapToOutput $MONITOR
 else
     echo "External monitor not found"
 fi
