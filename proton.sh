@@ -3,11 +3,12 @@
 # generic proton start script I use for non-steam games
 
 # proton distribution directory:
-export W="/home/dhouchin/.local/share/Steam/steamapps/common/Proton 5.0/dist"
+export PROTONVER="6.3"
+export W="$HOME/.local/share/Steam/steamapps/common/Proton $PROTONVER/dist"
 
 # create a prefix folder in game dir
 # WINEPREFIX must be absolute:
-export WINEPREFIX=/home/dhouchin/games/visualpinball/prefix
+export WINEPREFIX=$HOME/games/visualpinball/prefix
 
 ###
 export WINEVERPATH=$W
