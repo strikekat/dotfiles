@@ -1,0 +1,5 @@
+# Place in ~/.config/autostart
+[Desktop Entry]
+Type=Application
+Name=multiMonitorScaling
+Exec=/bin/sh -c "$HOME/src/dotfiles/dpi.sh"
