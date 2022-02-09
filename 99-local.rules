@@ -1,0 +1,5 @@
+# X1 Yoga Gen2 on Fedora
+# Change Gnome power profile on power supply event
+# Place in /etc/udev/rules.d/
+SUBSYSTEM=="power_supply",ENV{POWER_SUPPLY_ONLINE}=="0",RUN+="/usr/bin/powerprofilesctl set power-saver"
+SUBSYSTEM=="power_supply",ENV{POWER_SUPPLY_ONLINE}=="1",RUN+="/usr/bin/powerprofilesctl set performance"
