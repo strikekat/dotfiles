@@ -26,6 +26,8 @@ source $ZSH/oh-my-zsh.sh
 # restart gnome process without killing session
 alias killgnome="sudo killall -3 gnome-shell"
 
+alias resetscreen="~/src/dotfiles/dpi.sh"
+
 # dotnet test namespace
 tnm () {
     dotnet test --filter "FullyQualifiedName~$1"

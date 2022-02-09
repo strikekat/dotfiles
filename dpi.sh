@@ -5,6 +5,10 @@
 # XProfile is not getting executed and shell Profile seems to be too early
 # ~/.config/autostart with included .desktop file seems to work
 
+# Gnome also tries to be "helpful" and reset the display state when
+# opening or closing the laptop lid (assuming any physical display change really)
+# This could be run as a udev rule or the like but haven't looked into it
+
 if [[ -z "${DISPLAY}" ]]; then
     echo "X11 is not running"
     exit 1
