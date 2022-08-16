@@ -3,22 +3,8 @@
 
 ;; melpa
 (require 'package)
-(let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-                    (not (gnutls-available-p))))
-       (proto (if no-ssl "http" "https")))
-  (when no-ssl
-    (warn "\
-Your version of Emacs does not support SSL connections,
-which is unsafe because it allows man-in-the-middle attacks.
-There are two things you can do about this warning:
-1. Install an Emacs version that does support SSL and be safe.
-2. Remove this warning from your init file so you won't see it again."))
-  ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
-  ;;(add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-  (add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
-  (when (< emacs-major-version 24)
-    ;; For important compatibility libraries like cl-lib
-    (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
 
 (package-initialize)
 
@@ -39,24 +25,22 @@ There are two things you can do about this warning:
 ;; packages to install here:
 (ensure-package-installed
  'evil
- 'auto-complete
  'magit
+ 'catppuccin-theme
  'dracula-theme
  'markdown-mode
  'terraform-mode
  'dockerfile-mode
  'go-mode
  'yaml-mode
+ 'json-mode
  'anaconda-mode
  'csharp-mode
  'company
- 'lsp-mode
- 'lsp-ui
- 'lsp-treemacs
 )
 
 ;; default font
-(set-frame-font "Monospace 14" nil t)
+(set-frame-font "Monospace 12" nil t)
 
 ;; tab length
 (setq-default indent-tabs-mode nil)
@@ -93,29 +77,12 @@ There are two things you can do about this warning:
 ;; always add newline
 (setq require-final-newline t)
 
-;; autocomplete always on
-(global-auto-complete-mode t)
-
 ;; evil mode
 (require 'evil)
 (evil-mode 1)
 
 ;; Magit branch prompting DWIM
 (setq magit-branch-read-upstream-first 'fallback)
-
-;; auto-start omnisharp server
-;(add-hook 'csharp-mode-hook #'omnisharp-mode)
-;; auto-start omnisharp flycheck
-;(add-hook 'csharp-mode-hook #'flycheck-mode)
-;; auto-completion for omnisharp
-;(eval-after-load
-; 'company
-; '(add-to-list 'company-backends #'company-omnisharp))
-
-;(add-hook 'csharp-mode-hook #'company-mode)
-
-(require 'lsp-mode)
-(add-hook 'prog-mode-hook #'lsp)
 
 ;; make whitespaces chars a little more sensible
 (setq whitespace-display-mappings
@@ -183,9 +150,9 @@ There are two things you can do about this warning:
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
- '(custom-enabled-themes '(dracula))
+ '(custom-enabled-themes '(catppuccin))
  '(custom-safe-themes
-   '("fe1c13d75398b1c8fd7fdd1241a55c286b86c3e4ce513c4292d01383de152cb7" default))
+   '("0d2882cc7dbb37de573f14fdf53472bcfb4ec76e3d2f20c9a93a7b2fe1677bf5" "fe1c13d75398b1c8fd7fdd1241a55c286b86c3e4ce513c4292d01383de152cb7" default))
  '(inhibit-startup-screen t)
  '(package-selected-packages
    '(auto-complete ergoemacs-mode markdown-mode evil terraform-mode dockerfile-mode dracula-theme)))
@@ -196,3 +163,5 @@ There are two things you can do about this warning:
  ;; If there is more than one, they won't work right.
  )
 (put 'dired-find-alternate-file 'disabled nil)
+
+(setq warning-minimum-level :error)
