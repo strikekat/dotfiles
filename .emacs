@@ -37,10 +37,13 @@
  'anaconda-mode
  'csharp-mode
  'company
+ 'writeroom-mode
 )
 
-;; default font
-(set-frame-font "Monospace 12" nil t)
+;; check and set default font
+(cond
+ ((find-font (font-spec :name "Monaco"))
+  (set-frame-font "Monaco 12")))
 
 ;; tab length
 (setq-default indent-tabs-mode nil)
@@ -48,7 +51,7 @@
 (setq indent-line-function 'insert-tab)
 
 ;; line numbers
-(global-linum-mode)
+(global-display-line-numbers-mode)
 
 ;; hide toolbar
 (tool-bar-mode -1)
@@ -65,8 +68,12 @@
 ;; hide startup screen
 (setq inhibit-startup-screen t)
 
-;; flash screen for bell
-(setq visible-bell t)
+;; flash mode-line for bell instead of whole screen
+(setq visible-bell nil
+      ring-bell-function 'flash-mode-line)
+(defun flash-mode-line ()
+  (invert-face 'mode-line)
+  (run-with-timer 0.1 nil #'invert-face 'mode-line))
 
 ;; set term shell
 (setq explicit-shell-file-name (getenv "SHELL"))
@@ -80,6 +87,7 @@
 ;; evil mode
 (require 'evil)
 (evil-mode 1)
+(evil-set-undo-system 'undo-redo)
 
 ;; Magit branch prompting DWIM
 (setq magit-branch-read-upstream-first 'fallback)
@@ -152,7 +160,7 @@
    ["#212526" "#ff4b4b" "#b4fa70" "#fce94f" "#729fcf" "#e090d7" "#8cc4ff" "#eeeeec"])
  '(custom-enabled-themes '(catppuccin))
  '(custom-safe-themes
-   '("0d2882cc7dbb37de573f14fdf53472bcfb4ec76e3d2f20c9a93a7b2fe1677bf5" "fe1c13d75398b1c8fd7fdd1241a55c286b86c3e4ce513c4292d01383de152cb7" default))
+   '("80214de566132bf2c844b9dee3ec0599f65c5a1f2d6ff21a2c8309e6e70f9242" "518dee02bb738aa0c4afd9e1b0c084139c8d3c488d0efd206e970c78b27262e9" "0d2882cc7dbb37de573f14fdf53472bcfb4ec76e3d2f20c9a93a7b2fe1677bf5" "fe1c13d75398b1c8fd7fdd1241a55c286b86c3e4ce513c4292d01383de152cb7" default))
  '(inhibit-startup-screen t)
  '(package-selected-packages
    '(auto-complete ergoemacs-mode markdown-mode evil terraform-mode dockerfile-mode dracula-theme)))
